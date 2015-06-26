@@ -1,5 +1,6 @@
 package org.geojson.jackson;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.geojson.Crs;
 import org.geojson.GeoJsonObject;
@@ -28,7 +29,7 @@ public class CrsTest {
 		Crs crs = new Crs();
 		crs.setType(CrsType.link);
 		point.setCrs(crs);
-		String value = mapper.writeValueAsString(point);
-		assertEquals("{\"type\":\"Point\",\"crs\":{\"type\":\"link\",\"properties\":{}}}", value);
+		JsonNode value = mapper.valueToTree(point);
+		assertEquals(mapper.readTree("{\"type\":\"Point\",\"crs\":{\"type\":\"link\",\"properties\":{}}}"), value);
 	}
 }

@@ -25,8 +25,8 @@ public class PointTest {
 	@Test
 	public void itShouldSerializeAPoint() throws Exception {
 		Point point = new Point(100, 0);
-		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0]}",
-				mapper.writeValueAsString(point));
+		assertEquals(mapper.readTree("{\"type\":\"Point\",\"coordinates\":[100.0,0.0]}"),
+				mapper.valueToTree(point));
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class PointTest {
 	@Test
 	public void itShouldSerializeAPointWithAltitude() throws Exception {
 		Point point = new Point(100, 0, 256);
-		assertEquals("{\"type\":\"Point\",\"coordinates\":[100.0,0.0,256.0]}",
-				mapper.writeValueAsString(point));
+		assertEquals(mapper.readTree("{\"type\":\"Point\",\"coordinates\":[100.0,0.0,256.0]}"),
+				mapper.valueToTree(point));
 	}
 }
