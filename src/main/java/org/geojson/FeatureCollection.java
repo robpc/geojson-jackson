@@ -1,13 +1,14 @@
 package org.geojson;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.*;
 
 public class FeatureCollection extends GeoJsonObject implements Iterable<Feature> {
 
 	private List<Feature> features = new ArrayList<Feature>();
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private Map<String, Object> properties = new HashMap<String, Object>();
 
 	public List<Feature> getFeatures() {
 		return features;
@@ -24,6 +25,23 @@ public class FeatureCollection extends GeoJsonObject implements Iterable<Feature
 
 	public void addAll(Collection<Feature> features) {
 		this.features.addAll(features);
+	}
+
+	public void setProperty(String key, Object value) {
+		properties.put(key, value);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> T getProperty(String key) {
+		return (T)properties.get(key);
+	}
+
+	public Map<String, Object> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Map<String, Object> properties) {
+		this.properties = properties;
 	}
 
 	@Override
